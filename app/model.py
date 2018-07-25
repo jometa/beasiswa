@@ -21,3 +21,10 @@ class AppData(Base):
 engine = create_engine('sqlite:///sistemik.db')
 
 Base.metadata.create_all(engine)
+
+# Create mapping from attr to its display.
+attr_map = {
+  'a': 'a',
+  'b': 'b',
+  'c': 'c'
+}
