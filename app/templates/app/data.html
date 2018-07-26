@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+  <head>
+    {% include 'commons/header.html' %}
+    <link rel="stylesheet" href="/static/css/sidebar.css" />
+  </head>
+	<body>
+		<div id="top"></div>
+		<!-- Start Header Area -->
+    {% include 'app/commons/static-nav.html' %}
+    {% include 'app/commons/sidebar.html' %}
+
+    <div id="app-wrapper" class="top-section">
+      <section class="gray-bg full-height">
+        <div class="container-fluid">
+
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Dataset</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarColor01">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Features</a>
+                </li>
+              </ul>
+              <form class="form-inline">
+                <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" type="search">
+                <button class="btn btn-outline-info my-2 my-sm-0 mr-sm-2" type="submit">Search</button>
+                <button class="btn btn-outline-danger my-2 my-sm-0" type="button">Tambah</button>
+              </form>
+            </div>
+          </nav>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                    <th>Peluang Lolos</th>
+                    <th></th>
+                  </tr>
+                  <tbody>
+                    
+                  </tbody>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <div class="row justify-content-center flex-column">
+            {% for msg in get_flashed_messages() %}
+              <h3>{{ msg }}</h3>
+            {% endfor %}
+            <h3></h3>
+          </div>
+        </div>
+      </section>
+  
+      {% include 'commons/footer.html' %}
+    </div>
+    {% include 'commons/bottom-script.html' %}
+	</body>
+</html>

@@ -1636,3 +1636,8 @@ footer .footer-nav li a:hover {
   padding: 15px 0;
   background: linear-gradient(to right, rgba(60, 64, 143, 0.95) 0%, rgba(91, 97, 207, 0.95) 100%);
 }
+
+.full-height {
+  min-height: 90vh;
+  box-sizing: border-box;
+}

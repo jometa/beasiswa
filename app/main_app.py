@@ -31,17 +31,17 @@ def mamdani():
 @bp.route('/tsukamoto')
 @dbsession_required
 @login_required
-def mamdani():
+def tsukamoto():
     return render_template('app/tsukamoto.html')
 
 @bp.route('/sugeno')
 @dbsession_required
 @login_required
-def mamdani():
+def sugeno():
     return render_template('app/sugeno.html')
 
 @bp.route('/perbandingan')
 @dbsession_required
 @login_required
-def mamdani():
+def perbandingan():
     return render_template('app/perbandingan.html')
