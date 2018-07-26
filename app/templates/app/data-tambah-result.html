@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+  <head>
+    {% include 'commons/header.html' %}
+    <link rel="stylesheet" href="/static/css/sidebar.css" />
+  </head>
+	<body>
+		<div id="top"></div>
+		<!-- Start Header Area -->
+    {% include 'app/commons/static-nav.html' %}
+    {% include 'app/commons/sidebar.html' %}
+
+    <div id="app-wrapper" class="top-section">
+        <section class="section-full gray-bg">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-10">
+                  <div class="section-title text-center">
+                    <h3>Sukses menambahkan data penerima</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <a class="btn btn-info mr-2" href="/app/data">Lihat dataset</a>
+                <a class="btn btn-info" href="/app/data/tambah">Ulangi</a>
+              </div>
+              <div class="row justify-content-center flex-column">
+                {% for msg in get_flashed_messages() %}
+                  <h3>{{ msg }}</h3>
+                {% endfor %}
+                <h3></h3>
+              </div>
+            </div>
+          </section>
+  
+      {% include 'commons/footer.html' %}
+    </div>
+    {% include 'commons/bottom-script.html' %}
+	</body>
+</html>

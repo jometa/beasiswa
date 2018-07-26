@@ -55,10 +55,10 @@
                           {{ '%0.2f' | format(x.c) }}
                         </td>
                         <td>
-                          {{ '%0.2f' | format(x.target * 100) }} %
+                          {{ '%0.2f' | format(x.target) }} %
                         </td>
                         <td>
-                          <a class="btn btn-sm btn-outline-info" href="/app/data/update?id={{ x.id }}">Edit</a>
+                          <a class="btn btn-sm btn-outline-info" href="/app/data/edit?id={{ x.id }}">Edit</a>
                           <a class="btn btn-sm btn-outline-danger" href="/app/data/delete?id={{ x.id }}">Delete</a>
                         </td>
                       </tr>

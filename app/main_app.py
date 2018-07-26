@@ -24,6 +24,53 @@ def data():
     xs = dbsession.query(AppData).all()
     return render_template('app/data.html', xs=xs)
 
+@bp.route('/data/tambah', methods=['GET', 'POST'])
+@dbsession_required
+@login_required
+def dataTambah():
+    if request.method == 'POST':
+        dbsession = g.get('dbsession')
+        a = request.form['a']
+        b = request.form['b']
+        c = request.form['c']
+        target = request.form['target']
+
+        app_data = AppData(a=a, b=b, c=c, target=target)
+
+        dbsession.add(app_data)
+        dbsession.commit()
+        return render_template('app/data-tambah-result.html')
+    else:
+        return render_template('app/data-tambah.html')
+
+@bp.route('/data/edit', methods=['GET', 'POST'])
+@dbsession_required
+@login_required
+def dataEdit():
+    # Get id of app_data
+    data_id = request.args.get('id')
+
+    dbsession = g.get('dbsession')
+
+    # Get the record
+    record = dbsession.query(AppData).filter_by(id=int(data_id)).first()
+
+    if request.method == 'POST':
+        a = request.form['a']
+        b = request.form['b']
+        c = request.form['c']
+        target = request.form['target']
+
+        record.a = a
+        record.b = b
+        record.c = c
+        record.target = target
+
+        dbsession.commit()
+        return render_template('app/data-edit-result.html', id=data_id)
+    else:
+        return render_template('app/data-edit.html', x=record)
+
 @bp.route('/mamdani')
 @dbsession_required
 @login_required
