@@ -15,3 +15,33 @@ bp = Blueprint('app', __name__, url_prefix='/app')
 @login_required
 def index():
     return render_template('app/index.html')
+
+@bp.route('/data')
+@dbsession_required
+@login_required
+def data():
+    return render_template('app/data.html')
+
+@bp.route('/mamdani')
+@dbsession_required
+@login_required
+def mamdani():
+    return render_template('app/mamdani.html')
+
+@bp.route('/tsukamoto')
+@dbsession_required
+@login_required
+def mamdani():
+    return render_template('app/tsukamoto.html')
+
+@bp.route('/sugeno')
+@dbsession_required
+@login_required
+def mamdani():
+    return render_template('app/sugeno.html')
+
+@bp.route('/perbandingan')
+@dbsession_required
+@login_required
+def mamdani():
+    return render_template('app/perbandingan.html')
