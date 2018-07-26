@@ -48,7 +48,23 @@
                     <th></th>
                   </tr>
                   <tbody>
-                    
+                    {% for x in xs %}
+                      
+                      <tr>
+                        <td>
+                          {{ '%0.2f' | format(x.a) }}
+                        </td>
+                        <td>
+                          {{ '%0.2f' | format(x.b) }}
+                        </td>
+                        <td>
+                          {{ '%0.2f' | format(x.b) }}
+                        </td>
+                        <td>
+                          {{ x.target }}
+                        </td>
+                      </tr>
+                    {% endfor %}
                   </tbody>
                 </thead>
               </table>

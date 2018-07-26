@@ -5,7 +5,7 @@ from flask import (
   request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-from .model import User, dbsession_required
+from .model import User, AppData, dbsession_required
 from .auth import login_required
 
 bp = Blueprint('app', __name__, url_prefix='/app')
@@ -20,7 +20,9 @@ def index():
 @dbsession_required
 @login_required
 def data():
-    return render_template('app/data.html')
+    dbsession = g.get('dbsession')
+    xs = dbsession.query(AppData).all()
+    return render_template('app/data.html', xs=xs)
 
 @bp.route('/mamdani')
 @dbsession_required
