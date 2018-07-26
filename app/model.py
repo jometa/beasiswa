@@ -47,6 +47,23 @@ def init_db():
     user = User(username='admin', password=phash)
     dbsession.add(user)
     dbsession.commit()
+
+    # Randomize our dataset
+    import random
+    def random_dset(nrand=50):
+        dbsession = DBSession(bind=engine)
+        for i in  range(nrand):
+            a = random.random() * 100
+            b = random.random() * 100
+            c = random.random() * 100
+            target = random.getrandbits(1)
+            x = AppData(a=a, b=b, c=c, target=target)
+            dbsession.add(x)
+            
+            print('Add {}/{} data'.format(i + 1, nrand))
+        dbsession.commit()
+    random_dset()
+
     print('Database created')
 
 # Create the session and attach it to request context.
