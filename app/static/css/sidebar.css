@@ -59,3 +59,7 @@
 .main_sidebar ul li.active:hover i {
   color:#fff;
 }
+
+#app-wrapper {
+  margin-left: 350px;
+}

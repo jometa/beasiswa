@@ -7,45 +7,45 @@
 	<body>
 		<div id="top"></div>
 		<!-- Start Header Area -->
-    {% include 'commons/static-nav.html' %}
+    {% include 'app/commons/static-nav.html' %}
     {% include 'app/commons/sidebar.html' %}
-    
-		<!-- End Banner Area -->
-		<!-- Start About Area -->
-		<section class="section-full gray-bg">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-lg-10">
-						<div class="section-title text-center">
-							<h3>Login Now!</h3>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 mx-auto">
-						<form method='POST'>
-              <div class="form-group">
-                <label>Username</label>
-                <input name="username" class="form-control"/>
-              </div>
-              <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control"/>
-              </div>
-              <button type="submit" class="btn btn-info">Login</button>
-            </form>
-					</div>
-        </div>
-        <div class="row justify-content-center flex-column">
-          {% for msg in get_flashed_messages() %}
-            <h3>{{ msg }}</h3>
-          {% endfor %}
-          <h3></h3>
-        </div>
-			</div>
-    </section>
 
-    {% include 'commons/footer.html' %}
+    <div id="app-wrapper">
+      <section class="section-full gray-bg">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="section-title text-center">
+                <h3>Login Now!</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 mx-auto">
+              <form method='POST'>
+                <div class="form-group">
+                  <label>Username</label>
+                  <input name="username" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" name="password" class="form-control"/>
+                </div>
+                <button type="submit" class="btn btn-info">Login</button>
+              </form>
+            </div>
+          </div>
+          <div class="row justify-content-center flex-column">
+            {% for msg in get_flashed_messages() %}
+              <h3>{{ msg }}</h3>
+            {% endfor %}
+            <h3></h3>
+          </div>
+        </div>
+      </section>
+  
+      {% include 'commons/footer.html' %}
+    </div>
     {% include 'commons/bottom-script.html' %}
 	</body>
 </html>
