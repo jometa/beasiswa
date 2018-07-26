@@ -25,7 +25,7 @@ class AppData(Base):
     a = Column(Float, default=0.0)
     b = Column(Float, default=0.0)
     c = Column(Float, default=0.0)
-    target = Column(Integer, default=0)
+    target = Column(Float, default=0.0)
 
 # DB Name
 dbname = 'beasiswa.db'
@@ -56,7 +56,7 @@ def init_db():
             a = random.random() * 100
             b = random.random() * 100
             c = random.random() * 100
-            target = random.getrandbits(1)
+            target = random.random()
             x = AppData(a=a, b=b, c=c, target=target)
             dbsession.add(x)
             

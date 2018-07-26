@@ -22,12 +22,6 @@
         
             <div class="collapse navbar-collapse" id="navbarColor01">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Features</a>
-                </li>
               </ul>
               <form class="form-inline">
                 <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" type="search">
@@ -58,10 +52,14 @@
                           {{ '%0.2f' | format(x.b) }}
                         </td>
                         <td>
-                          {{ '%0.2f' | format(x.b) }}
+                          {{ '%0.2f' | format(x.c) }}
                         </td>
                         <td>
-                          {{ x.target }}
+                          {{ '%0.2f' | format(x.target * 100) }} %
+                        </td>
+                        <td>
+                          <a class="btn btn-sm btn-outline-info" href="/app/data/update?id={{ x.id }}">Edit</a>
+                          <a class="btn btn-sm btn-outline-danger" href="/app/data/delete?id={{ x.id }}">Delete</a>
                         </td>
                       </tr>
                     {% endfor %}
