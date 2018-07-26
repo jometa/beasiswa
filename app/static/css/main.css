@@ -1631,3 +1631,8 @@ footer .footer-nav li a:hover {
 .footer-bottom .footer-text a:hover {
   color: #00ff8c;
 }
+
+.static-header {
+  padding: 15px 0;
+  background: linear-gradient(to right, rgba(60, 64, 143, 0.95) 0%, rgba(91, 97, 207, 0.95) 100%);
+}

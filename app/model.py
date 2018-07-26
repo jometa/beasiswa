@@ -3,6 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from flask import current_app, g
 from flask.cli import with_appcontext
+from werkzeug.security import generate_password_hash
+from functools import wraps
 
 # Import click to have better cli interface.
 # (Yes, better for Windows)
@@ -14,7 +16,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    username = Column(String(250), nullable=False)
     password = Column(String(250), nullable=False)
 
 class AppData(Base):
@@ -40,19 +42,33 @@ DBSession = sessionmaker(autoflush=True)
 @with_appcontext
 def init_db():
     Base.metadata.create_all(engine)
+    dbsession = DBSession(bind=engine)
+    phash = generate_password_hash('admin')
+    user = User(username='admin', password=phash)
+    dbsession.add(user)
+    dbsession.commit()
     print('Database created')
 
 # Create the session and attach it to request context.
 def create_session():
-    if 'dbsession' not in g:
-        Base.metadata.bind = engine
-        session = DBSession(bind=engine)
-        g.session = session
+    Base.metadata.bind = engine
+    session = DBSession(bind=engine)
+    return session
+
+# Decorator to inject dbsession into app_context
+def dbsession_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        dbsession = g.pop('dbsession', None)
+        if dbsession is None:
+            g.dbsession = create_session()
+        return f(*args, **kwargs)
+    return wrap
 
 # Remove the session from request context and close it.
 # What the fuck is 'e'
 def close_session(e=None):
-    session = g.pop('session', None)
+    session = g.pop('dbsession', None)
     if session is not None:
         session.close()
 

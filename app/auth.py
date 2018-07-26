@@ -5,20 +5,36 @@ from flask import (
   request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-from .model import User
+from functools import wraps
+from .model import User, dbsession_required
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-@bp.route('/login')
+# Decorator to check if user is logged in.
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('/auth/login'), next=request.url)
+        return f(*args, **kwargs)
+    return decorated_function
+
+@bp.route('/login',  methods=['POST', 'GET'])
+@dbsession_required
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        error = None
 
         dbsession = g.get('dbsession')
         user = dbsession.query(User)\
-            .filter(User.name == username)\
+            .filter(User.username == username)\
             .first()
+
+        print(user.password)
+        print(password)
+
         if user is None:
             error = 'Incorrect username'
         elif not check_password_hash(user.password, password):
@@ -26,11 +42,12 @@ def login():
         
         if error is None:
             session.clear()
-            session.['user_id'] = user.id
-            return redirect(url_for('app'))
+            session['user_id'] = user.id
+            return redirect(url_for('app.index'))
         
         flash(error)
     return render_template('auth/login.html')
 
-@bp.route('/logut')
+@bp.route('/logout')
+def logout():
     pass

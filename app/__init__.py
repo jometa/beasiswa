@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -23,9 +23,21 @@ def create_app(test_config=None):
     # Register db session hook, and db seed command
     from . import model
     model.init_app(app)
+
+    # Register auth blueprint
+    from . import auth
+    app.register_blueprint(auth.bp)
+
+    # Register app blueprint
+    from . import main_app
+    app.register_blueprint(main_app.bp)
     
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
+
+    @app.route('/')
+    def index():
+        return render_template('index.html')
 
     return app
