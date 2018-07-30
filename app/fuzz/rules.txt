@@ -1,0 +1,8 @@
+IPK_low, TAN_low, POT_low -> PLO_low
+IPK_low, TAN_low, POT_mid -> PLO_low
+IPK_low, TAN_mid, POT_low -> PLO_low
+IPK_low, TAN_mid, POT_mid -> PLO_low
+IPK_mid, TAN_low, POT_low -> PLO_high
+IPK_mid, TAN_low, POT_mid -> PLO_low
+IPK_mid, TAN_mid, POT_low -> PLO_high
+IPK_mid, TAN_mid, POT_mid -> PLO_high
