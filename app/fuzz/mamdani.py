@@ -25,8 +25,10 @@ def create_memf(varname, level):
 def create_rule_func(memfuncs, outputf, level):
     def f(case):
         xs = [ g(case) for g in memfuncs ]
-        # print('xs: ', xs)
+        print('xs: ', xs)
         cut = min(xs)
+        print('cut: ', cut)
+        input()
         return outputf.level(level).clip(cut)
     return f
 
@@ -54,11 +56,16 @@ def load_rules(fname='fuzz/rules.txt'):
 def mamdani(case):
     rules = load_rules()
     result = [ r(case) for r in rules ]
+    # print( [ r.cut for r in rules ] )
+    # input()
     outputmf = fuzzmf.JoinMF(*result)
+    # print( outputmf.plot() )
+    # exit()
     cuts = [ r.cut for r in result ]
 
     # Find maximum cut
     maxc = max([ r.cut for r in result ])
+    print( [ r.cut for r in result ] )
     print(cuts)
     # print( result[0].d )
     # print(maxc)
@@ -66,13 +73,17 @@ def mamdani(case):
 
     # Get x that has max membership function
     xmaxc = [ x for x, u in outputmf.plot() if u == maxc ]
-    print(sum(xmaxc))
+    print(xmaxc)
+
     tot_x = sum( xmaxc )
     count = len( xmaxc )
+
+    print('tot_x: ', tot_x)
+    print('count: ', count)
 
     prob = tot_x * 1.0 / count
     return prob
 
 if __name__ == '__main__':
-    case = Case(ipk=3.21, tan=3, pot=2_000_000)
-    mamdani(case)
+    case = Case(ipk=3.6, tan=4, pot=3_000_000)
+    print(mamdani(case))

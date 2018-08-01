@@ -71,7 +71,7 @@ def dataEdit():
     else:
         return render_template('app/data-edit.html', x=record)
 
-@bp.route('/mamdani')
+@bp.route('/mamdani', methods=['GET', 'POST'])
 @dbsession_required
 @login_required
 def mamdani():
