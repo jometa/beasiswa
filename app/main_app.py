@@ -7,7 +7,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 from .model import User, AppData, dbsession_required
 from .auth import login_required
-from .fuzz import mamdani
+from .fuzz import mamdani, sugeno
 
 bp = Blueprint('app', __name__, url_prefix='/app')
 
@@ -76,7 +76,6 @@ def dataEdit():
 @dbsession_required
 @login_required
 def mamdaniHandler():
-    print(mamdani)
     if request.method == 'GET':
         return render_template('app/mamdani.html')
     else:
@@ -98,11 +97,25 @@ def mamdaniHandler():
 def tsukamoto():
     return render_template('app/tsukamoto.html')
 
-@bp.route('/sugeno')
+@bp.route('/sugeno', methods=['GET', 'POST'])
 @dbsession_required
 @login_required
-def sugeno():
-    return render_template('app/sugeno.html')
+def sugenoHandler():
+    if request.method == 'GET':
+        return render_template('app/klas-view.html', metode='Sugeno')
+    else:
+        name = request.form['name']
+        a = float(request.form['a'])
+        b = int(request.form['b'])
+        c = float(request.form['c'])
+
+        case = sugeno.Case(ipk=a, tan=b, pot=c)
+        prob = sugeno.sugeno(case)
+
+        return render_template('app/klas-result.html',
+          name=name,
+          prob=prob,
+          metode='Sugeno')
 
 @bp.route('/perbandingan')
 @dbsession_required

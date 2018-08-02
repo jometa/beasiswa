@@ -1,0 +1,8 @@
+IPK_low, TAN_low, POT_low -> PLO=50
+IPK_low, TAN_low, POT_mid -> PLO=60
+IPK_low, TAN_mid, POT_low -> PLO=55
+IPK_low, TAN_mid, POT_mid -> PLO=63
+IPK_mid, TAN_low, POT_low -> PLO=89
+IPK_mid, TAN_low, POT_mid -> PLO=45
+IPK_mid, TAN_mid, POT_low -> PLO=88
+IPK_mid, TAN_mid, POT_mid -> PLO=92
