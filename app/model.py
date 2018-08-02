@@ -5,6 +5,8 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 from werkzeug.security import generate_password_hash
 from functools import wraps
+import os.path
+import os
 
 # Import click to have better cli interface.
 # (Yes, better for Windows)
@@ -41,6 +43,12 @@ DBSession = sessionmaker(autoflush=True)
 @click.command('init-db')
 @with_appcontext
 def init_db():
+    # Remove db
+    db_name = 'beasiswa.db'
+    if (os.path.isfile(db_name)):
+        os.remove(db_name)
+        print('Removing db')
+
     Base.metadata.create_all(engine)
     dbsession = DBSession(bind=engine)
     phash = generate_password_hash('admin')
@@ -53,10 +61,10 @@ def init_db():
     def random_dset(nrand=50):
         dbsession = DBSession(bind=engine)
         for i in  range(nrand):
-            a = random.random() * 100
-            b = random.random() * 100
-            c = random.random() * 100
-            target = random.random()
+            a = random.random() * 4
+            b = int(random.random() * 10)
+            c = random.randint(1_000_000, 10_000_000)
+            target = random.random() * 100
             x = AppData(a=a, b=b, c=c, target=target)
             dbsession.add(x)
             

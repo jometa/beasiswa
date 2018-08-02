@@ -33,9 +33,9 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>A</th>
-                    <th>B</th>
-                    <th>C</th>
+                    <th>IPK</th>
+                    <th>Tanggungan</th>
+                    <th>Penghasilan Orang Tua</th>
                     <th>Peluang Lolos</th>
                     <th></th>
                   </tr>
@@ -47,10 +47,10 @@
                           {{ '%0.2f' | format(x.a) }}
                         </td>
                         <td>
-                          {{ '%0.2f' | format(x.b) }}
+                          {{ '{:.0g}'.format(x.b) }} orang
                         </td>
                         <td>
-                          {{ '%0.2f' | format(x.c) }}
+                          Rp, {{ '{:,}'.format(x.c).replace(',', '.') }}
                         </td>
                         <td>
                           {{ '%0.2f' | format(x.target) }} %
