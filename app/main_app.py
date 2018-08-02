@@ -7,6 +7,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 from .model import User, AppData, dbsession_required
 from .auth import login_required
+from .fuzz import mamdani
 
 bp = Blueprint('app', __name__, url_prefix='/app')
 
@@ -74,8 +75,22 @@ def dataEdit():
 @bp.route('/mamdani', methods=['GET', 'POST'])
 @dbsession_required
 @login_required
-def mamdani():
-    return render_template('app/mamdani.html')
+def mamdaniHandler():
+    print(mamdani)
+    if request.method == 'GET':
+        return render_template('app/mamdani.html')
+    else:
+        name = request.form['name']
+        a = float(request.form['a'])
+        b = int(request.form['b'])
+        c = float(request.form['c'])
+
+        case = mamdani.Case(ipk=a, tan=b, pot=c)
+        prob = mamdani.mamdani(case)
+
+        return render_template('app/mamdani-result.html',
+          name=name,
+          prob=prob)
 
 @bp.route('/tsukamoto')
 @dbsession_required
