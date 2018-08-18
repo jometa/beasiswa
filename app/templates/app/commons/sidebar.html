@@ -1,12 +1,40 @@
 <div class="wrapper">
     <aside class="main_sidebar">
         <ul>
-            <li><i class="fa fa-arrows"></i><a href="/app/data">Data</a></li>
-            <li><i class="fa fa-battery-2"></i><a href="/app/mamdani">Mamdani</a></li>
-            <li class="active"><i class="fa fa-bell"></i><a href="#">Tsukamoto</a></li>
-            <li><i class="fa fa-bicycle"></i><a href="/app/sugeno">Sugeno</a></li>
-            <li><i class="fa fa-circle"></i><a href="#">Perbandingan</a></li>
-            <li><i class="fa fa-crosshairs"></i><a href="#">crosshairs</a></li>
+            <li 
+              {% if 'data' in request.path %}
+              class ="active"
+              {% endif %}
+            >
+              <i class="fa fa-arrows"></i><a href="/app/data">Data</a>
+            </li>
+            
+            <li
+              {% if 'mamdani' in request.path %}
+              class ="active"
+              {% endif %}
+            ><i class="fa fa-battery-2"></i><a href="/app/mamdani">Mamdani</a></li>
+
+            <li
+              {% if 'tsukamoto' in request.path %}
+              class ="active"
+              {% endif %}
+            ><i class="fa fa-bell"></i><a href="/app/tsukamoto">Tsukamoto</a></li>
+
+            <li
+              {% if 'sugeno' in request.path %}
+              class ="active"
+              {% endif %}
+            ><i class="fa fa-bicycle"></i><a href="/app/sugeno">Sugeno</a></li>
+
+            <li
+              {% if 'perbandingan' in request.path %}
+              class ="active"
+              {% endif %}
+            ><i class="fa fa-circle"></i><a href="/app/perbandingan">Perbandingan</a></li>
+
+            <li><i class="fa fa-circle"></i><a href="/auth/logout">Logout</a></li>
+
         </ul>
     </aside>
     <div class="mian">

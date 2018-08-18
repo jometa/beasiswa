@@ -49,25 +49,3 @@ def load_rules(fname='fuzz/rules.txt'):
             rule = create_rule_func(memfuncs, outputf, clevel)
             rules.append(rule)
     return rules
-
-def mamdani(case):
-    rules = load_rules()
-    result = [ r(case) for r in rules ]
-    print([r.cut for r in result])
-    outputmf = fuzzmf.JoinMF(*result)
-
-    maxc = max([ r.cut for r in result ])
-    print([ (x, u) for x, u in outputmf.plot() if u == maxc ])
-
-    # Get x that has max membership function
-    xmaxc = [ x for x, u in outputmf.plot() if u == maxc ]
-
-    tot_x = sum( xmaxc )
-    count = len( xmaxc )
-
-    prob = tot_x * 1.0 / count
-    return prob
-
-if __name__ == '__main__':
-    case = Case(ipk=3.6, tan=4, pot=3_000_000)
-    print(mamdani(case))

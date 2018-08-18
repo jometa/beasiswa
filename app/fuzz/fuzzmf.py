@@ -43,6 +43,12 @@ class TrapRMF(DiscretePlot):
     
     def clip(self, cut):
         return TrapRMF(self.c, self.d, self.low, self.high, cut=cut)
+    
+    def inverse(self, y):
+        if y == 1.0: return self.c
+        elif y == 0: return self.d
+        else: return (-1 * y) * (self.d - self.c) + self.d
+        return 0
 
 class TrapLMF(DiscretePlot):
     def __init__(self, a, b, low, high, cut=1):
@@ -62,6 +68,11 @@ class TrapLMF(DiscretePlot):
     
     def clip(self, cut):
         return TrapLMF(self.a, self.b, self.low, self.high, cut=cut)
+
+    def inverse(self, y):
+        if y == 1: return self.b
+        elif y == 0: return self.a
+        else: return y * (self.b - self.a) + self.a
 
 class TrapMF(DiscretePlot):
     def __init__(self, a, b, c, d, low, high, cut=1):

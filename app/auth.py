@@ -32,9 +32,6 @@ def login():
             .filter(User.username == username)\
             .first()
 
-        print(user.password)
-        print(password)
-
         if user is None:
             error = 'Incorrect username'
         elif not check_password_hash(user.password, password):
@@ -46,8 +43,14 @@ def login():
             return redirect(url_for('app.index'))
         
         flash(error)
-    return render_template('auth/login.html')
+        return redirect(url_for('auth.login'))
+    else:
+        if session.get('user_id', None) is not None:
+            return redirect('/app/data')
+        else:
+            return render_template('auth/login.html')
 
 @bp.route('/logout')
 def logout():
-    pass
+    session.clear()
+    return redirect('/')

@@ -39,30 +39,30 @@
                     <th>Peluang Lolos</th>
                     <th></th>
                   </tr>
-                  <tbody>
-                    {% for x in xs %}
-                      
-                      <tr>
-                        <td>
-                          {{ '%0.2f' | format(x.a) }}
-                        </td>
-                        <td>
-                          {{ '{:.0g}'.format(x.b) }} orang
-                        </td>
-                        <td>
-                          Rp, {{ '{:,}'.format(x.c).replace(',', '.') }}
-                        </td>
-                        <td>
-                          {{ '%0.2f' | format(x.target) }} %
-                        </td>
-                        <td>
-                          <a class="btn btn-sm btn-outline-info" href="/app/data/edit?id={{ x.id }}">Edit</a>
-                          <a class="btn btn-sm btn-outline-danger" href="/app/data/delete?id={{ x.id }}">Delete</a>
-                        </td>
-                      </tr>
-                    {% endfor %}
-                  </tbody>
                 </thead>
+                <tbody>
+                  {% for x in xs %}
+                    
+                    <tr>
+                      <td>
+                        {{ '%0.2f' | format(x.a) }}
+                      </td>
+                      <td>
+                        {{ '{:.0g}'.format(x.b) }} orang
+                      </td>
+                      <td>
+                        Rp, {{ '{:,}'.format(x.c).replace(',', '.') }}
+                      </td>
+                      <td>
+                        {{ '%0.2f' | format(x.target) }} %
+                      </td>
+                      <td>
+                        <a class="btn btn-sm btn-outline-info" href="/app/data/edit?id={{ x.id }}">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" href="/app/data/delete?id={{ x.id }}">Delete</a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
               </table>
             </div>
           </div>

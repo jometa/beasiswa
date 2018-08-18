@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, session, redirect
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -38,6 +38,8 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
+        if session.get('user_id', None) is not None:
+            return redirect('/app/data')
         return render_template('index.html')
 
     return app
