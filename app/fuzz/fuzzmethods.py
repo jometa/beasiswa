@@ -97,16 +97,17 @@ class Mamdani(FuzzMethod):
         # print([r.cut for r in result])
         outputmf = fuzzmf.JoinMF(*result)
 
-        maxc = max([ r.cut for r in result ])
+        # maxc = max([ r.cut for r in result ])
         # print([ (x, u) for x, u in outputmf.plot() if u == maxc ])
         # Get x that has max membership function
-        xmaxc = [ x for x, u in outputmf.plot() if u == maxc ]
+        # xmaxc = [ x for x, u in outputmf.plot() if u == maxc ]
+        return outputmf.cog()
 
-        tot_x = sum( xmaxc )
-        count = len( xmaxc )
+        # tot_x = sum( xmaxc )
+        # count = len( xmaxc )
 
-        prob = tot_x * 1.0 / count
-        return prob
+        # prob = tot_x * 1.0 / count
+        # return prob
 
 class Tsukamoto(Mamdani):
     def run(self, case):

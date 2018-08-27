@@ -7,7 +7,8 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 from .model import User, AppData, dbsession_required
 from .auth import login_required
-from .fuzz.fuzzmethods import Case, mamdani, tsukamoto, sugeno, compare_methods
+from .fuzz.fuzzmethods import Case, tsukamoto, sugeno, compare_methods
+from .fuzz import mamdani
 
 bp = Blueprint('app', __name__, url_prefix='/app')
 
@@ -84,8 +85,8 @@ def mamdaniHandler():
         b = int(request.form['b'])
         c = float(request.form['c'])
 
-        case = Case(ipk=a, tan=b, pot=c)
-        prob = mamdani.run(case)
+        case = mamdani.Case(ipk=a, tan=b, pot=c)
+        prob = mamdani.mamdani(case)
 
         return render_template('app/mamdani-result.html',
           name=name,
