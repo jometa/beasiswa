@@ -165,9 +165,11 @@ def penentuan():
         c = float(request.form['c'])
 
         case = Case(ipk=a, tan=b, pot=c)
+        mcase = mamdani.Case(ipk=a, tan=b, pot=c)
+        mprob = mamdani.mamdani(case)
         result = (
             PenentuanResult( 'sugeno', sugeno.run(case) ),
-            PenentuanResult( 'mamdani', mamdani.mamdani(case) ),
+            PenentuanResult( 'mamdani', mprob ),
             PenentuanResult( 'tsukamoto', tsukamoto.run(case) )
         )
 
