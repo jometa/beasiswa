@@ -33,6 +33,8 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
+                    <th>No.</th>
+                    <th>Nama</th>
                     <th>IPK</th>
                     <th>Tanggungan</th>
                     <th>Penghasilan Orang Tua</th>
@@ -44,6 +46,12 @@
                   {% for x in xs %}
                     
                     <tr>
+                      <td>
+                        {{ loop.index }}
+                      </td>
+                      <td>
+                        {{ x.name }}
+                      </td>
                       <td>
                         {{ '%0.2f' | format(x.a) }}
                       </td>

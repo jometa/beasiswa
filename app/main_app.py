@@ -9,8 +9,11 @@ from .model import User, AppData, dbsession_required
 from .auth import login_required
 from .fuzz.fuzzmethods import Case, tsukamoto, sugeno, compare_methods
 from .fuzz import mamdani
+import collections
 
 bp = Blueprint('app', __name__, url_prefix='/app')
+
+PenentuanResult = collections.namedtuple('PenentuanResult', ['metode', 'prob'])
 
 @bp.route('/')
 @dbsession_required
@@ -32,12 +35,13 @@ def data():
 def dataTambah():
     if request.method == 'POST':
         dbsession = g.get('dbsession')
+        name = request.form['name']
         a = request.form['a']
         b = request.form['b']
         c = request.form['c']
         target = request.form['target']
 
-        app_data = AppData(a=a, b=b, c=c, target=target)
+        app_data = AppData(name=name, a=a, b=b, c=c, target=target)
 
         dbsession.add(app_data)
         dbsession.commit()
@@ -148,3 +152,24 @@ def perbandingan():
         case = Case(ipk=a, tan=b, pot=c)
         result = compare_methods(case)
         return render_template('app/perbandingan-result.html', result=result, n=n)
+
+@bp.route('/penentuan', methods=['GET', 'POST'])
+@dbsession_required
+@login_required
+def penentuan():
+    if request.method == 'GET':
+        return render_template('app/klas-view.html')
+    else:
+        a = float(request.form['a'])
+        b = int(request.form['b'])
+        c = float(request.form['c'])
+
+        case = Case(ipk=a, tan=b, pot=c)
+        result = (
+            PenentuanResult( 'sugeno', sugeno.run(case) ),
+            PenentuanResult( 'mamdani', mamdani.mamdani(case) ),
+            PenentuanResult( 'tsukamoto', tsukamoto.run(case) )
+        )
+
+        return render_template('app/penentuan-result.html',
+          result=result)

@@ -23,6 +23,7 @@ class User(Base):
 
 class AppData(Base):
     __tablename__ = 'app_data'
+    name = Column(String(250))
     id = Column(Integer, primary_key=True)
     a = Column(Float, default=0.0)
     b = Column(Float, default=0.0)
@@ -61,11 +62,12 @@ def init_db():
     def random_dset(nrand=50):
         dbsession = DBSession(bind=engine)
         for i in  range(nrand):
+            name = f'Mahasiswa-{i}'
             a = random.random() * 4
             b = int(random.random() * 10)
             c = random.randint(1_000_000, 10_000_000)
             target = random.random() * 100
-            x = AppData(a=a, b=b, c=c, target=target)
+            x = AppData(name=name, a=a, b=b, c=c, target=target)
             dbsession.add(x)
             
             print('Add {}/{} data'.format(i + 1, nrand))
