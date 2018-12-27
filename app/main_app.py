@@ -7,8 +7,8 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 from .model import User, AppData, dbsession_required
 from .auth import login_required
-from .fuzz.fuzzmethods import Case, tsukamoto, sugeno, compare_methods
-from .fuzz import mamdani
+from .fuzz.fuzzmethods import Case, tsukamoto, sugeno, compare_methods, mamdani
+# from .fuzz import mamdani
 import collections
 
 bp = Blueprint('app', __name__, url_prefix='/app')
@@ -165,8 +165,8 @@ def penentuan():
         c = float(request.form['c'])
 
         case = Case(ipk=a, tan=b, pot=c)
-        mcase = mamdani.Case(ipk=a, tan=b, pot=c)
-        mprob = mamdani.mamdani(case)
+        # mcase = mamdani.Case(ipk=a, tan=b, pot=c)
+        mprob = mamdani.run(case)
         result = (
             PenentuanResult( 'sugeno', sugeno.run(case) ),
             PenentuanResult( 'mamdani', mprob ),
